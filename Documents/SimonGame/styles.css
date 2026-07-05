@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "Arcade Classic";
+    src: url(fonts/arcadeclassic.regular.ttf);
+}
+
+
+h1{
+    color:#f2cc8f;
+   font-family: "Arcade Classic";
+   font-size: 5rem;
+}
+
+body{
+    background-color: #001233;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 200px, 200px;
+    grid-template-columns: 200px, 200px;
+}
+
+#green{
+  color:greenyellow;
+  height: 200px;
+  width: 200px;
+}
+
+#red{
+   color: red;
+}
+
+#yellow{
+  color:yellow;
+}
+
+#purple{
+  color: purple;
+}
