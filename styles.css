@@ -1,0 +1,53 @@
+@font-face {
+    font-family: "Arcade Classic";
+    src: url(fonts/arcadeclassic.regular.ttf);
+}
+
+
+h1{
+    color:#f2cc8f;
+   font-family: "Arcade Classic";
+   font-size: 5rem;
+   word-spacing: 20px;
+   text-align:  center;
+
+}
+
+body{
+    background-color: #001233;
+}
+
+.container{
+   
+    display:grid;
+    grid-template-columns: 130px 130px;
+    grid-template-rows: 130px 130px;
+    gap:20px;
+  
+    justify-content: center;
+    align-items: center; 
+
+}
+
+.item{
+  height:130px;
+  width: 130px; 
+  border-radius: 20%;
+  border: black solid 7px;
+} 
+
+#green{
+  background-color:rgb(6, 242, 6);
+}
+
+#red{
+   background-color: rgb(255, 0, 0);
+}
+
+#yellow{
+  background-color:rgb(255, 255, 0);
+}
+
+#purple{
+  background-color: rgb(251, 5, 251);
+}
