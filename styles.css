@@ -8,7 +8,7 @@ h1{
     color:#f2cc8f;
    font-family: "Arcade Classic";
    font-size: 5rem;
-   word-spacing: 20px;
+   word-spacing: 30px;
    text-align:  center;
 
 }
@@ -50,4 +50,9 @@ body{
 
 #purple{
   background-color: rgb(251, 5, 251);
+}
+
+.pressed{
+  box-shadow: 5px 5px 5px lightblue;
+  opacity: 0.5;
 }
