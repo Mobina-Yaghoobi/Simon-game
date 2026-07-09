@@ -59,7 +59,7 @@ function randomNumber(){
 function computerRandomMove(RandomNum){
      switch (RandomNum) {
     case 0:
-        SoundRelatedToEach("green");
+        soundRelatedToEach("green");
         var greenBox = document.querySelector("#green");
         greenBox.classList.add("pressed");
         setTimeout(function(){
@@ -69,7 +69,7 @@ function computerRandomMove(RandomNum){
       break;
 
     case 1:
-         SoundRelatedToEach("red");
+         soundRelatedToEach("red");
         var redBox = document.querySelector("#red");
         redBox.classList.add("pressed");
         setTimeout(function(){
@@ -79,7 +79,7 @@ function computerRandomMove(RandomNum){
       break;
 
     case 2:
-        SoundRelatedToEach("yellow");
+        soundRelatedToEach("yellow");
         var yellowBox = document.querySelector("#yellow");
         yellowBox.classList.add("pressed");
         setTimeout(function(){
@@ -89,7 +89,7 @@ function computerRandomMove(RandomNum){
       break;
 
     case 3:
-        SoundRelatedToEach("purple");
+        soundRelatedToEach("purple");
         var purpleBox = document.querySelector("#purple");
         purpleBox.classList.add("pressed");
         setTimeout(function(){
@@ -107,34 +107,21 @@ function computerRandomMove(RandomNum){
   // computerRandomMove(randomNumber());
 
 
-
+var computerBoxes = [];
 function computerMoveRecord(){
-   var computerBoxes = [];
-   computerBox.push(computerRandomMove(randomNumber()));
+   computerBoxes.push(computerRandomMove(randomNumber()));
    return computerBoxes;
   }
- 
+
+
+ var computerBoxes = [];
 function userMoveRecord(){
-  var userBoxes = [];
   userBoxes.push(userClick());
   return userBoxes;
 }
 
-function levelUp(){
-  level = 0;
-  do{
-    level++;
-    document.querySelector("h1").innerHTML = "level" + String(level);
-    for(var i = 0; i < level; i++){
-      computerMoveRecord();
-    }
-    userMoveRecord();
-   
-  }while(computerMoveRecord() === userMoveRecord());
-}
-
 function gameOver(){
-  // if(computerMoveRecord() !== userMoveRecord()){
+   if(computerMoveRecord() !== userMoveRecord()){
     document.querySelector("h1").innerHTML = "Game Over, Press  Any Key to Restart";
     document.body.style.backgroundColor = "red";
     setTimeout(function(){
@@ -144,11 +131,34 @@ function gameOver(){
     gameOverSound.play();
 
   }
-// }
+}
 
-gameOver();
+function Game(){
+  document.addEventListener("click",function(){
+    var level = 0;
+     do{
+    level++;
+    document.querySelector("h1").innerHTML = "level" + String(level);
+    for(var i = 0; i < level; i++){
+      computerRandomMove(randomNumber());
+    }
+    userClick();
+   
+  }while(comparison(computerMoveRecord(), userMoveRecord()) == true);
+  });
+  gameOver();
+}
+
+function comparison(computerMove, userMove){
+
+return (JSON.stringify(computerMove) === JSON.stringify(userMove));
+}
 
 
+ Game();
+
+
+  
 
 
 
