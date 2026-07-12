@@ -29,12 +29,30 @@ body{
 
 }
 
+#record{
+  color: black;
+  font-size:xx-large;
+  font-family: "Arcade Classic";
+  background-color:#f2cc8f;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height:50px;
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  border-radius: 5%;
+  border:#68460f  solid 4px;
+}
+
 .item{
   height:130px;
   width: 130px; 
   border-radius: 20%;
   border: black solid 7px;
 } 
+
+
 
 #green{
   background-color:rgb(6, 242, 6);

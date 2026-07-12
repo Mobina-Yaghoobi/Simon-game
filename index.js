@@ -166,6 +166,7 @@ function gameOver(){
     userBoxes = [];
     level = 1; 
     gameStarted = false;
+     
     
 }
 
@@ -191,8 +192,9 @@ function checkUserMove(){
 var gameStarted = false;
 var level = 1; 
 function Game(){
- document.addEventListener("keydown",function(){
   
+ document.addEventListener("keydown",function(){
+
   if(gameStarted == false){
     gameStarted = true;
     playTheGame();
@@ -205,13 +207,29 @@ function playTheGame(){
   document.querySelector("h1").innerHTML = "level" + String(level);
   computerMoveRecord();
   computerMoveFromScratch(level);
+  highestLevel();
+}
+
+var bestLevel = 0;
+function highestLevel(){
+
+  if(level > bestLevel){
+    bestLevel = level;
+    document.getElementById("record").innerHTML = "Highest Level: " + String(bestLevel);
+    localStorage.setItem('bestLevel', bestLevel);
+  }
+  else{
+     document.getElementById("record").innerHTML = "Highest Level: " + String(bestLevel);
+  }
   
 }
 
 
-
+ bestLevel = localStorage.getItem("bestLevel"); 
+ highestLevel();
 userClick();
   Game();
+ 
 
 
 
