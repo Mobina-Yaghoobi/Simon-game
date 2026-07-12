@@ -155,7 +155,7 @@ for(let i = 0 ; i < Level; i++){
 
 function gameOver(){
   
-    document.querySelector("h1").innerHTML = "Game Over, Press  Any Key to Restart";
+    document.querySelector("h1").innerHTML = "Game Over, click here to Restart";
     document.body.style.backgroundColor = "red";
     setTimeout(function(){
       document.body.style.backgroundColor = "#001233";
@@ -193,7 +193,7 @@ var gameStarted = false;
 var level = 1; 
 function Game(){
   
- document.addEventListener("keydown",function(){
+ document.querySelector("h1").addEventListener("click",function(){
 
   if(gameStarted == false){
     gameStarted = true;
