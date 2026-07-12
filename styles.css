@@ -53,6 +53,6 @@ body{
 }
 
 .pressed{
-  box-shadow: 5px 5px 5px lightblue;
+  box-shadow: 3px 3px 3px lightblue;
   opacity: 0.5;
 }

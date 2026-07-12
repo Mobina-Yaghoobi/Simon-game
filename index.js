@@ -48,12 +48,15 @@ function userClick(){
     for (var i = 0; i < document.querySelectorAll(".item").length; i++){
 
     document.querySelectorAll(".item")[i].addEventListener("click", function(){
+        if(!userCanClick){
+          return;
+        }
         
-         
-         displayRelatedToEach(this);
-         soundRelatedToEach(this.id);
+        displayRelatedToEach(this);
+        soundRelatedToEach(this.id);
         userMoveRecord(this.id);
         checkUserMove();
+        
     });
 }
 }
@@ -64,86 +67,86 @@ function randomNumber(){
   return Math.floor(Math.random() * 4);
 }
 
-function computerRandomMove(RandomNum){
-     switch (RandomNum) {
-    case 0:
-        soundRelatedToEach("green");
-        var greenBox = document.querySelector("#green");
-        greenBox.classList.add("pressed");
-        setTimeout(function(){
-            greenBox.classList.remove("pressed");
-            }, 100);
-            return "green";
-      break;
 
-    case 1:
-         soundRelatedToEach("red");
-        var redBox = document.querySelector("#red");
-        redBox.classList.add("pressed");
-        setTimeout(function(){
-            redBox.classList.remove("pressed");
-            }, 100); 
-            return"red";      
-      break;
+function computerNextMoveRandomColor(RandomNum){
+switch (RandomNum) {
+  case 0:
+    return "green";
+  case 1:
+    return "red";
+  case 2:
+    return "yellow";
+  case 3:
+    return "purple";
 
-    case 2:
-        soundRelatedToEach("yellow");
-        var yellowBox = document.querySelector("#yellow");
-        yellowBox.classList.add("pressed");
-        setTimeout(function(){
-            yellowBox.classList.remove("pressed");
-            }, 100);
-            return "yellow";
-      break;
-
-    case 3:
-        soundRelatedToEach("purple");
-        var purpleBox = document.querySelector("#purple");
-        purpleBox.classList.add("pressed");
-        setTimeout(function(){
-            purpleBox.classList.remove("pressed");
-            }, 100);
-            return "purple";
-      break;
-  
-    default:
-      console.log(RandomNum);
-      break;
-  }
+  default:
+    console.log(RandomNum);
+    break;
 }
-  
+}
 
 
 var computerBoxes = [];
 function computerMoveRecord(){
-   computerBoxes.push(computerRandomMove(randomNumber()));
+  var color = computerNextMoveRandomColor(randomNumber());
+   computerBoxes.push(color);
    return computerBoxes;
   }
 
 function computerMoveFromScratch(Level){
-for(var i = 0 ; i < Level; i++){
+  userCanClick = false;
+for(let i = 0 ; i < Level; i++){
   setTimeout(function(){
     switch(computerBoxes[i]){
+
     case "green":
-      computerRandomMove(0);
+      soundRelatedToEach("green");
+      var greenBox = document.querySelector("#green");
+      greenBox.classList.add("pressed");
+      setTimeout(function(){
+            greenBox.classList.remove("pressed");
+            }, 200);
     break;
 
     case "red":
-      computerRandomMove(1);
+      soundRelatedToEach("red");
+      var redBox = document.querySelector("#red");
+      redBox.classList.add("pressed");
+      setTimeout(function(){
+             redBox.classList.remove("pressed");
+            }, 200); 
     break; 
 
     case "yellow":
-      computerRandomMove(2);
+      soundRelatedToEach("yellow");
+      var yellowBox = document.querySelector("#yellow");
+      yellowBox.classList.add("pressed");
+      setTimeout(function(){
+            yellowBox.classList.remove("pressed");
+            }, 200); 
     break;
 
     case "purple":
-      computerRandomMove(3);
+      soundRelatedToEach("purple");
+      var purpleBox = document.querySelector("#purple");
+      purpleBox.classList.add("pressed");
+      setTimeout(function(){
+            purpleBox.classList.remove("pressed");
+            }, 200);    
     break;   
     default: 
     console.log(computerBoxes[i]);
    
   }
-  }, 1000);
+  setTimeout(function(){
+   if(i === Level - 1)
+    userCanClick = true;
+  }, 300)
+
+
+  }, 500 * i)
+    
+ 
   
 }
 }
@@ -156,48 +159,61 @@ function gameOver(){
     document.body.style.backgroundColor = "red";
     setTimeout(function(){
       document.body.style.backgroundColor = "#001233";
-    }, 200);
-    var gameOverSound = new Audio("./sounds/poppop.ai - game over audio.mp3");
+    }, 500);
+    var gameOverSound = new Audio("./sounds/round-not-completed.mp3");
     gameOverSound.play();
-
+    computerBoxes = [];
+    userBoxes = [];
+    level = 1; 
+    gameStarted = false;
+    
 }
 
-function totalComparison(computerMove, userMove){
 
-return (JSON.stringify(computerMove) === JSON.stringify(userMove));
-}
 
 function checkUserMove(){
-      computerLastElement = computerBoxes[computerBoxes.length - 1];
-      userLastElement = userBoxes[userBoxes.length - 1];
-
-    if(computerLastElement !== userLastElement)
-      {
-          return false;
-      }
-      else{
-        true;
-      }
+  if(computerBoxes[userBoxes.length -1 ] !== userBoxes[userBoxes.length -1]){
+      gameOver();
+      return;
+  }
+  if(userBoxes.length === computerBoxes.length){
+    level++;
+    document.querySelector("h1").innerHTML = "level" + String(level);
+    userBoxes = [];
+    setTimeout(function(){
+      playTheGame();
+    }, 1000);
     
+  }
   }
  
 
-
-var level = 0; 
+var gameStarted = false;
+var level = 1; 
 function Game(){
-
-  document.addEventListener("click",function(){
-     level++;
-    document.querySelector("h1").innerHTML = "level" + String(level);
-    computerMoveRecord();
-    computerMoveFromScratch(level);
-
-  });
+ document.addEventListener("keydown",function(){
+  
+  if(gameStarted == false){
+    gameStarted = true;
+    playTheGame();
+  }
+  
+});
+}
+var userCanClick = false;
+function playTheGame(){
+  document.querySelector("h1").innerHTML = "level" + String(level);
+  computerMoveRecord();
+  computerMoveFromScratch(level);
+  
 }
 
 
+
 userClick();
-Game();
+  Game();
+
+
 
 
 
